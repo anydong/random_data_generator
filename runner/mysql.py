@@ -1,18 +1,23 @@
-import pymysql
 import threading
 from generator import address
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from runner import schema
 
-connect = pymysql.connect(host='127.0.0.1', user='root', password='123456', database='test')
+# 初始化数据库连接:
+engine = create_engine('mysql+pymysql://root:123456@127.0.0.1:3306/test')
+# 创建DBSession类型:
+DBSession = sessionmaker(bind=engine)
 
 
 def insert():
-    cursor = connect.cursor()
-    sql_str = "INSERT INTO account (user_name, email) VALUES (%s,%s)"
-    values = []
-    for i in range(100):
-        values.append((address.address(), 'email'))
-    cursor.executemany(sql_str, values)
-    connect.commit()
+    session = DBSession()
+    user = schema.User(
+        name=address.street_name()
+    )
+    session.add(user)
+    session.commit()
+    session.close()
 
 
 for num in range(1000):

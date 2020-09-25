@@ -9,5 +9,5 @@ def micro_time():
     return time.time()
 
 
-def datetime():
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(timestamp()))
+def current_datetime():
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
