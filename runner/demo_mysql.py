@@ -39,9 +39,9 @@ def run():
     start_time = time.time()
     session = Session()
 
-    for i in range(100):
+    for _ in range(100):
         users = []
-        for num in range(1000):
+        for _ in range(1000):
             users.append(User(
                 name=fake.name()
             ))
