@@ -1,10 +1,12 @@
 import datetime
 import time
+from faker import Faker
 from sqlalchemy import Column, BigInteger, String, create_engine, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.sql import func, text
-from generator import address
+
+fake = Faker(locale='zh_CN')
 
 Base = declarative_base()
 
@@ -41,7 +43,7 @@ def run():
         users = []
         for num in range(1000):
             users.append(User(
-                name=address.street_name()
+                name=fake.name()
             ))
         session.add_all(users)
 
