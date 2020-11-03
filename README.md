@@ -6,6 +6,11 @@
 pip install -r requirements.txt
 ```
 
+## 运行
+```bash
+python mysql.py
+```
+
 ## 数字
 ```python
 import random
