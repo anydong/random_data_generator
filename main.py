@@ -1,7 +1,7 @@
 import time
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from schemas import table_user
+from schemas import mysql_user
 
 # 初始化数据库连接:
 engine = create_engine('mysql+pymysql://homestead:secret@127.0.0.1:33060/homestead', pool_size=20, max_overflow=10)
@@ -18,7 +18,7 @@ def run():
     for _ in range(100):
         users = []
         for _ in range(1000):
-            users.append(table_user.generator())
+            users.append(mysql_user.generator())
         session.add_all(users)
 
     session.commit()
