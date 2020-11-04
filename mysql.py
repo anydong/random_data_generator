@@ -2,10 +2,10 @@ import time
 from multiprocessing import Pool
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from schemas import mysql_user
 
+schema = __import__(''.join(['schemas', '.', 'mysql_user']), fromlist=['schema'])
 # 初始化数据库连接:
-engine = create_engine('mysql+pymysql://homestead:secret@127.0.0.1:33060/homestead?charset=utf8mb4', pool_size=20,
+engine = create_engine(schema.url(), pool_size=20,
                        max_overflow=10)
 
 # 创建 Session:
@@ -18,10 +18,10 @@ def run(name):
     session = Session()
 
     for _ in range(10):
-        users = []
+        rows = []
         for _ in range(1000):
-            users.append(mysql_user.generator())
-        session.add_all(users)
+            rows.append(schema.generator())
+        session.add_all(rows)
 
     session.commit()
     Session.remove()
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     main_process_start_time = time.time()
     pool = Pool()
 
-    for i in range(100):
+    for i in range(10):
         print(i)
         pool.apply_async(run, (str(i),))
 

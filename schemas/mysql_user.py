@@ -7,6 +7,10 @@ from sqlalchemy.sql import func, text
 Base = declarative_base()
 
 
+def url():
+    return 'mysql+pymysql://homestead:secret@127.0.0.1:33060/homestead?charset=utf8mb4'
+
+
 class User(Base):
     __tablename__ = 'user'
 
