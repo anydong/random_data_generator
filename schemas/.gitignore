@@ -1,4 +1,6 @@
 *
 !.gitignore
 
+__init__.py
+
 mysql_user.py
