@@ -1,5 +1,4 @@
 import datetime
-import bcrypt
 from faker import Faker
 from sqlalchemy import Column, BigInteger, String, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
