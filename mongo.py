@@ -3,13 +3,10 @@ from multiprocessing import Pool
 import pymongo
 import time
 
-from schemas import mongo_user
+schema = __import__(''.join(['schemas', '.', 'mongo_user']), fromlist=['schema'])
 
-client = pymongo.MongoClient("mongodb://localhost:27017")
-db = client['test']
-
-db.authenticate("admin", "123456")
-db.list_collection_names()
+client = pymongo.MongoClient(schema.url())
+db = client.get_default_database()
 
 
 def run(name):
@@ -18,7 +15,7 @@ def run(name):
     for _ in range(10):
         documents = []
         for _ in range(1000):
-            documents.append(mongo_user.generator())
+            documents.append(schema.generator())
         db.get_collection("user").insert_many(documents)
 
     print(name, '耗时：', time.time() - child_process_start_time)

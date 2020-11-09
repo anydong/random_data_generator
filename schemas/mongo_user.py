@@ -4,14 +4,7 @@ fake = Faker(locale='zh_CN')
 
 
 def url():
-    return {
-        "host": 'localhost',
-        "port": 27017,
-        "name": 'root',
-        "password": '123456',
-        "database": 'test',
-        "collection": "user"
-    }
+    return 'mongodb://admin:123456@localhost:27017/db_test'
 
 
 def generator():
