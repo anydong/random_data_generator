@@ -28,7 +28,7 @@ def run(name):
     print(name, '耗时：', time.time() - child_process_start_time)
 
 
-if __name__ == "__main__":
+def main():
     main_process_start_time = time.time()
     pool = Pool()
 
@@ -40,3 +40,7 @@ if __name__ == "__main__":
     pool.join()
 
     print('总耗时：', time.time() - main_process_start_time)
+
+
+if __name__ == "__main__":
+    main()
