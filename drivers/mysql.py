@@ -1,10 +1,10 @@
 import time
-from multiprocessing import Pool
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.exc import OperationalError
+import global_var as gl
 
-schema = __import__(''.join(['schemas', '.', 'mysql_user']), fromlist=['schema'])
+schema = __import__(''.join(['schemas', '.', gl.get_value('schema')]), fromlist=['schema'])
 # 初始化数据库连接:
 engine = create_engine(schema.url(), pool_size=20,
                        max_overflow=10)
@@ -34,21 +34,3 @@ def error_callback(res):
         print('数据库错误：', res)
     else:
         print(res)
-
-
-def main():
-    main_process_start_time = time.time()
-    pool = Pool()
-
-    for i in range(10):
-        print(i)
-        pool.apply_async(run, (str(i),), error_callback=error_callback)
-
-    pool.close()
-    pool.join()
-
-    print('总耗时：', time.time() - main_process_start_time)
-
-
-if __name__ == "__main__":
-    main()
