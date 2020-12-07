@@ -8,7 +8,7 @@ Base = declarative_base()
 
 
 def url():
-    return 'mysql+pymysql://root:123456@127.0.0.1:3306/test?charset=utf8mb4'
+    return 'mysql+pymysql://root:123456@127.0.0.1:3306/db_test?charset=utf8mb4'
 
 
 class User(Base):
